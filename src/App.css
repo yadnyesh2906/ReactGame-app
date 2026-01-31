@@ -1,0 +1,354 @@
+/* ROOT */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0d0d1a; /* Darker background for gaming feel */
+  color: #fff;
+}
+
+/* APP CONTAINER */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* SIDEBAR / LEFT PANEL */
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #1a1a2e;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 1px solid #333;
+}
+
+.user-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+  color: #00bfff;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group-item {
+  padding: 12px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+  color: #ccc;
+}
+
+.list-group-item:hover {
+  background: linear-gradient(90deg, #00bfff, #ff00ff);
+  color: #fff;
+  transform: translateX(5px);
+  font-weight: bold;
+}
+
+.list-label {
+  margin-top: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #bbb;
+}
+
+/* RIGHT PANEL / CARDS */
+.cards-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+  background: linear-gradient(to bottom, #0d0d1a 0%, #1e1e2f 100%); /* subtle gradient behind cards */
+}
+
+.cards-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cards-panel::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+/* Search bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 60%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background-color: #2a2a3f;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0,191,255,0.4);
+  transition: 0.3s;
+}
+
+.search-container input::placeholder {
+  color: #aaa;
+}
+
+.search-container input:focus {
+  box-shadow: 0 0 15px #00bfff;
+}
+
+/* Cards grid */
+.cards-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* CARD STYLING */
+.game-card {
+  position: relative;
+  background-color: #1e1e2f;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #333;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.game-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.game-card:hover img {
+  transform: scale(1.05);
+}
+
+.game-card h5 {
+  margin: 10px 0 4px 0;
+  font-size: 1rem;
+  color: #00bfff;
+  transition: transform 0.3s;
+}
+
+.game-card:hover h5 {
+  transform: translateY(-5px);
+}
+
+/* Description */
+.game-card p {
+  font-size: 0.8rem;
+  margin: 0 0 10px 0;
+  color: #aaa;
+}
+
+/* Play button overlay */
+.game-card::after {
+  content: "Play";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: #00bfff;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 25px;
+  opacity: 0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.game-card:hover::after {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Hover card shadow */
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 191, 255, 0.6);
+  border-color: #00bfff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .cards-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+
+  .cards-grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .search-container input {
+    width: 90%;
+  }
+}
+
+/* Recently clicked games container */
+.recent-games-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.recent-games-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.recent-games-container::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 3px;
+}
+
+/* Each recent game card */
+.recent-game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.recent-game-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.recent-game-card span {
+  font-size: 0.7rem;
+  color: #ccc;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.recent-game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-detail-page {
+  background: linear-gradient(to bottom, #0d0d1a 0%, #1e1e2f 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+.back-btn {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  background: transparent;
+  border: 1px solid #00bfff;
+  color: #00bfff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #00bfff;
+  color: #fff;
+}
+
+.game-detail-card {
+  background-color: #1e1e2f;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,191,255,0.5);
+}
+
+.game-detail-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.game-detail-card h2 {
+  color: #00bfff;
+  margin-bottom: 10px;
+}
+
+.game-detail-card p {
+  color: #ccc;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.buy-btn, .rent-btn {
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buy-btn {
+  background-color: #00bfff;
+  color: #fff;
+}
+
+.buy-btn:hover {
+  background-color: #ff00ff;
+}
+
+.rent-btn {
+  background-color: #ff00ff;
+  color: #fff;
+}
+
+.rent-btn:hover {
+  background-color: #00bfff;
+}
